@@ -1,5 +1,6 @@
 # VoxelShare
 magicavoxelで作成したvoxファイルをブラウザ上で3D表示するサービスです。
+
 Vue.jsとAWSの勉強のために作成したサービスですが、維持費がかかるため終了しました。
 
 ![トップ画面](https://user-images.githubusercontent.com/51951093/63208963-e6132880-c115-11e9-8b53-7ea2f5a82d7e.jpg)
@@ -9,8 +10,9 @@ Vue.jsとAWSの勉強のために作成したサービスですが、維持費�
 ## AWS Amplify CLI
 
 * auth
-* api
 * storage
+* api
+
 
 ### auth
 ```
