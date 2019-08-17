@@ -1,0 +1,60 @@
+type Post 
+	@model
+	@searchable
+	@auth(rules: [
+		{ allow: owner, ownerField: "owner", identityField: "sub", operations: [create, update, delete] }
+	])
+	{
+		id: ID!
+		owner: String
+		user:User @connection(name: "UserPosts", sortField: "createdAt")
+		title: String!
+		description: String!
+		model: S3Object!
+		thumnail: S3Object!
+		comment: [Comment] @connection(name:"PostComments",sortField:"createdAt")
+		visibility: Visibility
+		createdAt: String
+	}
+
+enum Visibility {
+    public
+	private
+}
+
+type Comment 
+	@model
+	@auth(rules: [
+		{ allow: owner, ownerField: "owner", identityField: "sub", operations: [create, update, delete] }
+	])
+	{
+		id: ID!
+		owner: String
+		post: Post @connection(name:"PostComments",sortField:"createdAt")
+		contentt: String!
+		createdAt:String
+	}
+
+type S3Object {
+	bucket: String!
+	region: String!
+	key: String!
+}
+
+type User 
+	@model
+	@auth(rules: [
+		{ allow: owner, ownerField: "owner", identityField: "sub", operations: [create, update, delete] }
+	])
+	@key(name:"ByUserid",fields:["userid"],queryField:"itemsByUserid")
+
+	{
+		id: ID!
+		owner:String
+		userid: String!
+		nickname: String
+		twitterid: String
+		avatar: S3Object
+		bio: String
+		posts: [Post] @connection(name: "UserPosts", sortField: "createdAt")
+	}
